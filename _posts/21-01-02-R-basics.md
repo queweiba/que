@@ -106,6 +106,28 @@ gsample$Continent[gsample$MAKE=='HOLDEN'] <- 'AUS'
 ```
 
 3. replace()
+```r
+x <- data.frame(a = c(0,1,2,NA), b = c(0,NA,1,2), c = c(NA, 0, 1, 2)) 
+#   a  b  c
+#1  0  0 NA
+#2  1 NA  0
+#3  2  1  1
+#4 NA  2  2
+x$a <- replace(x$a, is.na(x$a), 0)
+x
+#  a  b  c
+#1 0  0 NA
+#2 1 NA  0
+#3 2  1  1
+#4 0  2  2
+x$b <- replace(x$b, x$b==2, 333)
+x
+#  a   b  c
+#1 0   0 NA
+#2 1  NA  0
+#3 2   1  1
+#4 0 333  2
+```
 
 4. plyr 的 `revalue()`
 ```r
@@ -339,7 +361,7 @@ df.tot$order <- ave(row.names(df.tot), df.tot$ID, FUN = seq_along)
 mutate(nAMT=n()-sum(is.na(AMT)))
 ```
 
-寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lag. 注意与R basic 的lag区分开
+寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lead. 注意与R basic 的lag区分开
 ```r
 lag(x, n = 1L, default = NA, order_by = NULL, ...)
 lead(x, n = 1L, default = NA, order_by = NULL, ...)
