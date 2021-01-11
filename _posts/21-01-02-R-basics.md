@@ -1,6 +1,6 @@
 ### 读取数据
 1. 将数据里的特定字符转化为NA
-```python
+```r
 vanco<-read.csv("Vancomycin_FINAL2.csv",na.strings=".")
 ```
 2. 没有列名
@@ -89,7 +89,7 @@ select(iris, -starts_with("Petal"))
 
 3. 最基础的(通过列名，通过位置，通过判断)
 ```r
-doswt <- dos[,c("ID","samplemoment")]
+doswt <- dos[,c("ID","samplemoment")]#通过列名
 char<-char[,-grep("birthdate|DOB|time",colnames(char))] #grep 返回的也是位置
 dataly[ , -which(colnames(dataly) %in% c("b","d"))]  #which 返回的是位置而不是判断
 ```
@@ -105,13 +105,15 @@ gsample$Continent <- with(gsample, ifelse(MAKE=='HOLDEN', 'AUS', Continent))
 gsample$Continent[gsample$MAKE=='HOLDEN'] <- 'AUS'
 ```
 
-3. plyr 的 `revalue()`
+3. replace()
+
+4. plyr 的 `revalue()`
 ```r
 library(plyr)
 junk$nm <- revalue(junk$nm, c("B"="b"))
 ```
 
-4. dplyr 的`recode()`
+5. dplyr 的`recode()`
 ```r
 char_vec <- sample(c("a", "b", "c"), 10, replace = TRUE)
 recode(char_vec, a = "Apple")
@@ -202,7 +204,20 @@ gron$AMT <- gsub(",", ".", gron$AMT)
 df.PNA <- df.tot[!duplicated(df.tot$ID),] 
 ```
 
-### 统计分析
+### 统计分析：Summarise
+Useful functions
+- Center: mean(), median()
+
+- Spread: sd(), IQR(), mad()
+
+- Range: min(), max(), quantile()
+
+- Position: first(), last(), nth(),
+
+- Count: n(), n_distinct()
+
+- Logical: any(), all()
+
 **n() count**
 ```r
 if (require("nycflights13")) {
@@ -234,7 +249,6 @@ head(harMet_15Min$datetime)
 #
 # convert column to date class
 dateOnly_HARV <- as.Date(harMet_15Min$datetime)
-#
 # view data
 head(dateOnly_HARV)
 #[1] "2005-01-01" "2005-01-01" "2005-01-01" "2005-01-01" "2005-01-01"
@@ -311,8 +325,6 @@ unclass(timeDatelt)
 ## 其它
 去除factor——unfactor
 
-对号入座的
-
 nrow(dataset) 列的数目
 
 substring 选择截取字符
@@ -322,3 +334,42 @@ make order
 df.tot$order <- ave(row.names(df.tot), df.tot$ID, FUN = seq_along) 
 ```
 
+计算列中非NA的列数目
+```r
+mutate(nAMT=n()-sum(is.na(AMT)))
+```
+
+寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lag. 注意与R basic 的lag区分开
+```r
+lag(x, n = 1L, default = NA, order_by = NULL, ...)
+lead(x, n = 1L, default = NA, order_by = NULL, ...)
+dplyr::lag(1:5)
+## [1] NA  1  2  3  4
+dplyr::lag(1:5, 2)
+## [1] NA NA  1  2  3
+dplyr::lead(1:5)
+## [1]  2  3  4  5 NA
+# If you want to define a value for non-existing rows, use `default`
+lag(1:5, default = 0)
+#[1] 0 1 2 3 4
+```
+
+LOCF公式——Zoo:Generic function for replacing each NA with the most recent non-NA prior to it.
+```r
+na.locf(object, na.rm = TRUE, ...)
+## Default S3 method:
+na.locf(object, na.rm = TRUE, fromLast, rev,
+        maxgap = Inf, rule = 2, ...)
+na.locf0(object, fromLast = FALSE, maxgap = Inf, coredata = NULL)
+#The function na.locf0 is the workhorse function underlying the default na.locf method. It has more limited capabilities but is faster for the special cases it covers. Implicitly, it uses na.rm=FALSE.
+#example
+x<-c(NA,NA,1,3,NA,6,NA)
+na.locf(x)
+#[1] 1 3 3 6 6
+ na.locf(x,na.rm = F)
+#[1] NA NA  1  3  3  6  6
+na.locf0(x)
+#[1] NA NA  1  3  3  6  6
+na.locf(x,fromLast = T)
+#[1] 1 1 1 3 6 6
+```
