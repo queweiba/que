@@ -97,7 +97,7 @@ author:
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I am an **amazing** person."
   location         : "Netherland"
-  email            :
+  email            : "queweiba@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
