@@ -158,6 +158,23 @@ num_vec <- c(1:4, NA)
 recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
+6. dplyr的`case_when()`  
+```r
+#the left hand side must be logical. 
+#If none of the cases match, NA is used for right hand side(RHS).
+#All RHS values need to be of the same type. Inconsistent types will throw an error.
+# This applies also to NA values used in RHS: NA is logical, use typed values like NA_real_, NA_complex, NA_character_, NA_integer_ as appropriate.
+  p <- case_when(
+    BW <=1000 ~24.615,
+    between(BW,1001,1250) ~31.814,
+    between(BW,1251,1500) ~36.575,
+    between(BW,1501,1750) ~39.839,
+    between(BW,1751,2000) ~38.184,
+    between(BW,2001,2250) ~44.88,
+    BW >2250 ~38.203
+  )
+  #dplyr::between() is a shortcut for x >= left & x <= right,返回的是T or F；
+```
 
 ### 排序
 
@@ -177,7 +194,7 @@ rename(dataset, newname=oldname)
 ```
 
 ### 两个数据条件配对
-1. match，这个返回的是位置，没找到就是NA
+1. match，这个返回的是在第二个序列上的位置，没找到就是NA
 ```r
 print(match(5, c(1,2,9,5,3,6,7,4,5)))
 #[1] 4
@@ -205,7 +222,7 @@ x
 which(x == 5)
 #[1] 2
 ```
-3. %in% 这个返回的T or F, 没找打返回的是F
+3. %in% 这个返回的T or F, 没找打返回的是F，即第一个序列在第二个序列是否能够被找到
 ```r
 5 %in% c(1,2,9,5,3,6,7,4,5)
 #[1] TRUE
@@ -249,16 +266,31 @@ mutate(carriers, n = n())
 filter(carriers, n() < 100)
 ```
 **Interpolation**
-1. na.approx
+1. zoo::na.approx
  an integer (of length 1 or 2) describing how interpolation is to take place outside the interval [min(x), max(x)].
  - If rule is 1 then NAs are returned for such points
  - if it is 2, the value at the closest data extreme is used.
  - Use, e.g., rule = 2:1, if the left and right side extrapolation should differ.
+ - use na.rm=False to keep those NA values that can not be interpolated.
 ```r
 df.tot <- df.tot %>% 
   group_by(ID) %>% 
   mutate(Weight2 = na.approx(WT, TIMECALC, rule=2)) %>% 
   ungroup()
+d0 <- as.Date("2000-01-01")
+z <- zoo(c(11, NA, 13, NA, 15, NA), d0 + 1:6)
+z
+#2000-01-02 2000-01-03 2000-01-04 2000-01-05 2000-01-06 2000-01-07 
+#        11         NA         13         NA         15         NA 
+na.approx(z, xout = d0 + 7)
+#Data:
+#numeric(0)
+na.approx(z, xout = d0 + 7, na.rm = FALSE)
+#2000-01-08 
+#        NA
+na.approx(z, xout = d0 + 7, rule = 2)
+#2000-01-08 
+#        15 
 ```
 
 ### 日期
@@ -394,4 +426,42 @@ na.locf0(x)
 #[1] NA NA  1  3  3  6  6
 na.locf(x,fromLast = T)
 #[1] 1 1 1 3 6 6
+```
+
+**Apply**
+1. lapply   
+  将一个function联系运用到向量的每一个值, 直到序列得最后一个数值,但返回得总是list，且length跟输入的一样
+```r
+x <- list(a = 1:10, b = log10(2:78), c = c(TRUE,FALSE,FALSE,FALSE))
+lapply(x, quantile)
+#$`a`
+#   0%   25%   50%   75%  100% 
+# 1.00  3.25  5.50  7.75 10.00 
+#$beta
+#         0%         25%         50%         75%        100% 
+# 0.04978707  0.25160736  1.00000000  5.05366896 20.08553692 
+#$logic
+#  0%  25%  50%  75% 100% 
+# 0.0  0.0  0.5  1.0  1.0 
+```
+2. sapply  
+    返回的根据function()返回的值，更自由一些，可以是vector ,list, matrix
+```r
+sapply(X, FUN, ..., simplify = TRUE, USE.NAMES = TRUE)
+x <- list(a = 1:10, b = log10(2:78), c = c(TRUE,FALSE,FALSE,FALSE))
+z <- sapply(x, quantile)
+z
+#         a        beta logic
+#0%    1.00  0.04978707   0.0
+#25%   3.25  0.25160736   0.0
+#50%   5.50  1.00000000   0.5
+#75%   7.75  5.05366896   1.0
+#100% 10.00 20.08553692   1.0
+```
+3. mapply  
+    将一个function联系运用到向量的每一个值, 直到序列得最后一个数值。与sapply相同，但是适用于可以出入两个以上参数的function
+```r
+mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
+       USE.NAMES = TRUE)
+combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 ```
