@@ -102,3 +102,5 @@ p3 <- grid.arrange(arrangeGrob(a + theme(legend.position="none"),
                                nrow = 1,widths = c(5,5,2.3))
 )
 ```
+
+##颜色的改变
