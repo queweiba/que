@@ -214,6 +214,7 @@ x <- match(v1,v2, nomatch = 0)
 x
 #[1] 6 8 0 3
 ```
+nomatch option,如果想把NA替换为其他数字，可以使用match(..., nomatch=0)
 2. which () 这个返回的是True对应的位置
 ```r
 x <- c(1,5,8,4,6)
