@@ -194,7 +194,7 @@ rename(dataset, newname=oldname)
 ```
 
 ### 两个数据条件配对
-1. match，这个返回的是在第二个序列上的位置，没找到就是NA
+1. match，The match() function returns a vector of the position of first occurrence of the vector1 in vector2. If the element of the vector1 does not exist in vector2, NA is returned. 即这个返回的是第二个序列在第一个序列中的位置。第一个序列在第二个序列中没有对应的值则为NA。
 ```r
 print(match(5, c(1,2,9,5,3,6,7,4,5)))
 #[1] 4
@@ -214,7 +214,7 @@ x <- match(v1,v2, nomatch = 0)
 x
 #[1] 6 8 0 3
 ```
-2. which () 这个返回的是对应的位置
+2. which () 这个返回的是对应的位置，这个注意只能用一个参数进行检索
 ```r
 x <- c(1,5,8,4,6)
 x
@@ -222,7 +222,7 @@ x
 which(x == 5)
 #[1] 2
 ```
-3. %in% 这个返回的T or F, 没找打返回的是F，即第一个序列在第二个序列是否能够被找到
+3. %in% 这个返回的T or F, 没找打返回的是F，返回的是第一个序列中能否在第二个序列中找到
 ```r
 5 %in% c(1,2,9,5,3,6,7,4,5)
 #[1] TRUE
