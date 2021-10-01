@@ -266,7 +266,7 @@ summarise(carriers, n())
 mutate(carriers, n = n())
 filter(carriers, n() < 100)
 ```
-**Interpolation**
+### Interpolation
 1. zoo::na.approx
  an integer (of length 1 or 2) describing how interpolation is to take place outside the interval [min(x), max(x)].
  - If rule is 1 then NAs are returned for such points
@@ -292,6 +292,26 @@ na.approx(z, xout = d0 + 7, na.rm = FALSE)
 na.approx(z, xout = d0 + 7, rule = 2)
 #2000-01-08 
 #        15 
+```
+
+2. LOCF公式——Zoo:Generic function for replacing each NA with the most recent non-NA prior to it.
+```r
+na.locf(object, na.rm = TRUE, ...)
+## Default S3 method:
+na.locf(object, na.rm = TRUE, fromLast, rev,
+        maxgap = Inf, rule = 2, ...)
+na.locf0(object, fromLast = FALSE, maxgap = Inf, coredata = NULL)
+#The function na.locf0 is the workhorse function underlying the default na.locf method. It has more limited capabilities but is faster for the special cases it covers. Implicitly, it uses na.rm=FALSE.
+#example
+x<-c(NA,NA,1,3,NA,6,NA)
+na.locf(x)
+#[1] 1 3 3 6 6
+ na.locf(x,na.rm = F)
+#[1] NA NA  1  3  3  6  6
+na.locf0(x)
+#[1] NA NA  1  3  3  6  6
+na.locf(x,fromLast = T)
+#[1] 1 1 1 3 6 6
 ```
 
 ### 日期
@@ -407,26 +427,6 @@ dplyr::lead(1:5)
 # If you want to define a value for non-existing rows, use `default`
 lag(1:5, default = 0)
 #[1] 0 1 2 3 4
-```
-
-LOCF公式——Zoo:Generic function for replacing each NA with the most recent non-NA prior to it.
-```r
-na.locf(object, na.rm = TRUE, ...)
-## Default S3 method:
-na.locf(object, na.rm = TRUE, fromLast, rev,
-        maxgap = Inf, rule = 2, ...)
-na.locf0(object, fromLast = FALSE, maxgap = Inf, coredata = NULL)
-#The function na.locf0 is the workhorse function underlying the default na.locf method. It has more limited capabilities but is faster for the special cases it covers. Implicitly, it uses na.rm=FALSE.
-#example
-x<-c(NA,NA,1,3,NA,6,NA)
-na.locf(x)
-#[1] 1 3 3 6 6
- na.locf(x,na.rm = F)
-#[1] NA NA  1  3  3  6  6
-na.locf0(x)
-#[1] NA NA  1  3  3  6  6
-na.locf(x,fromLast = T)
-#[1] 1 1 1 3 6 6
 ```
 
 **Apply**
