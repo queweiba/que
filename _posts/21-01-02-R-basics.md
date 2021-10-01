@@ -313,7 +313,22 @@ na.locf0(x)
 na.locf(x,fromLast = T)
 #[1] 1 1 1 3 6 6
 ```
+3. Lag() or lead()
 
+寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lead. 注意与R basic 的lag区分开
+```r
+lag(x, n = 1L, default = NA, order_by = NULL, ...)
+lead(x, n = 1L, default = NA, order_by = NULL, ...)
+dplyr::lag(1:5)
+## [1] NA  1  2  3  4
+dplyr::lag(1:5, 2)
+## [1] NA NA  1  2  3
+dplyr::lead(1:5)
+## [1]  2  3  4  5 NA
+# If you want to define a value for non-existing rows, use `default`
+lag(1:5, default = 0)
+#[1] 0 1 2 3 4
+```
 ### 日期
 1. as. date
 把character 转化为 日期用as.date ，会丢失掉时间的信息
@@ -414,20 +429,6 @@ df.tot$order <- ave(row.names(df.tot), df.tot$ID, FUN = seq_along)
 mutate(nAMT=n()-sum(is.na(AMT)))
 ```
 
-寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lead. 注意与R basic 的lag区分开
-```r
-lag(x, n = 1L, default = NA, order_by = NULL, ...)
-lead(x, n = 1L, default = NA, order_by = NULL, ...)
-dplyr::lag(1:5)
-## [1] NA  1  2  3  4
-dplyr::lag(1:5, 2)
-## [1] NA NA  1  2  3
-dplyr::lead(1:5)
-## [1]  2  3  4  5 NA
-# If you want to define a value for non-existing rows, use `default`
-lag(1:5, default = 0)
-#[1] 0 1 2 3 4
-```
 
 **Apply**
 1. lapply   
