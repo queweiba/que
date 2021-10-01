@@ -57,6 +57,13 @@ scale_colour_viridis(option="plasma")
 geom_dl(data=xi,aes(label = as.factor(paste(BW,"g"))), method = list(dl.combine( "last.points")), cex = 0.8)
 ```
 
+3.给图加上text
+```r
+p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
+p + geom_text(fontface=3)
+p + geom_text(aes(fontface=am+1))
+p + geom_text(aes(family=c("serif", "mono")[am+1]))
+```
 
 **合并图片**
 1. cowplot
