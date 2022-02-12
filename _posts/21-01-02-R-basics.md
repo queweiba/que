@@ -92,6 +92,7 @@ select(iris, -starts_with("Petal"))
 doswt <- dos[,c("ID","samplemoment")]#通过列名
 char<-char[,-grep("birthdate|DOB|time",colnames(char))] #grep 返回的也是位置
 dataly[ , -which(colnames(dataly) %in% c("b","d"))]  #which 返回的是位置而不是判断
+dat[dat$Group == 'Control', ] #通过判断
 ```
 
 ## 条件替换
