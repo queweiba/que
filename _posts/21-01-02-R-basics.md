@@ -21,7 +21,7 @@ row.names==NULL.
 
 ### 筛选数据
 
-**条件筛选行**
+**筛选行**
 
 1. base 里的subset()
 ```r
@@ -60,8 +60,10 @@ my_data %>% slice(1:6)
 ```
 4. 最基础的
 ```r
-weight<-weight[weight$ID %in% idconc,] #用T or F 进行筛选
+weight<-weight[weight$ID %in% idconc,] #用逻辑筛选
 my_data[c(1:3),]  #根据行的位置来选择
+#用列名筛选，但首先需要设置列名
+read.csv(row.names=1)#将第一列设置为行名，然后就可以用行名筛选
 ```
 ```r
 #注：
