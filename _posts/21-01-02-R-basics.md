@@ -236,7 +236,29 @@ v2 <- c("g1","x2","d2","e2","f1","a1","c2","b2","a2")
 v1 %in% v2
 #[1] TRUE TRUE FALSE TRUE
 ```
-
+### 比较
+1. identical
+identical是比较严格的比较，如果只想比较数值可以用“==”
+```
+identical(1, 1.)   ## TRUE in R (both are stored as doubles)
+identical(1, as.integer(1)) ## FALSE, stored as different types
+identical(as.double(8), as.integer(8))
+#[1] FALSE
+as.double(8) == as.integer(8)
+#[1] TRUE
+```r
+2. all.equal()
+all.equal(x, y) is a utility to compare R objects x and y testing ‘near equality’. If they are different, comparison is still made to some extent, and a report of the differences is returned.还可以用来比较list, environment and POSIXt
+```
+all.equal(pi, 355/113)
+#[1] "Mean relative difference: 8.491368e-08"
+#需要用tolerance来限制允许相似的位数
+all.equal(pi, 355/113,tolerance = 0.006)
+#[1] TRUE
+#安全起见最好用is.TRUE()如果需要返回loagical，因为all.equal有时候并不返回logical
+isTRUE(all.equal(pi, 355/113))
+#[1] FALSE
+```r
 ### 替换字符串
 ```r
 gron$AMT <- gsub(",", ".", gron$AMT) 
@@ -434,7 +456,27 @@ mutate(nAMT=n()-sum(is.na(AMT)))
 
 
 **Apply**
-1. lapply   
+1. apply
+Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
+margins is a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
+```
+ x <- cbind(x1 = 3, x2 = c(4:1, 2:5))
+ dimnames(x)[[1]] <- letters[1:8]
+> x
+#  x1 x2
+#a  3  4
+#b  3  3
+#c  3  2
+#d  3  1
+#e  3  2
+#f  3  3
+#g  3  4
+#h  3  5
+apply(x, 2, mean, trim = .2)
+#x1 x2 
+# 3  3
+```r
+2. lapply   
   将一个function联系运用到向量的每一个值, 直到序列得最后一个数值,但返回得总是list，且length跟输入的一样
 ```r
 x <- list(a = 1:10, b = log10(2:78), c = c(TRUE,FALSE,FALSE,FALSE))
@@ -449,7 +491,7 @@ lapply(x, quantile)
 #  0%  25%  50%  75% 100% 
 # 0.0  0.0  0.5  1.0  1.0 
 ```
-2. sapply  
+3. sapply  
     返回的根据function()返回的值，更自由一些，可以是vector ,list, matrix
 ```r
 sapply(X, FUN, ..., simplify = TRUE, USE.NAMES = TRUE)
@@ -463,7 +505,7 @@ z
 #75%   7.75  5.05366896   1.0
 #100% 10.00 20.08553692   1.0
 ```
-3. mapply  
+4. mapply  
     将一个function联系运用到向量的每一个值, 直到序列得最后一个数值。与sapply相同，但是适用于可以出入两个以上参数的function
 ```r
 mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
