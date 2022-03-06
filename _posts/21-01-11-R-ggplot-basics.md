@@ -111,5 +111,14 @@ p3 <- grid.arrange(arrangeGrob(a + theme(legend.position="none"),
 ```
 
 ##颜色的改变
-JFLJFADFA
-手动改变颜色scale colorscale_color_manual(values = c("#52854C","#C3D7A4","#FFDB6D","#D16103"),limits=c('(0,30]', '(30,50]' ,'(50,100]', '(100,Inf]'))
+1. 手动改变颜色
+```r
+scale_color<-scale_color_manual(values = c("#52854C","#C3D7A4","#FFDB6D","#D16103"),limits=c('(0,30]', '(30,50]' ,'(50,100]', '(100,Inf]'))
+
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl)))
+p + scale_colour_manual(values = c("red", "blue", "green"))
+# It's recommended to use a named vector
+cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
+p + scale_colour_manual(values = cols)
+```
