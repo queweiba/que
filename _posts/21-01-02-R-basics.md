@@ -453,13 +453,14 @@ df.tot$order <- ave(row.names(df.tot), df.tot$ID, FUN = seq_along)
 ```r
 mutate(nAMT=n()-sum(is.na(AMT)))
 ```
-
+**字符串的查找和替换**
+grep,grepl,sub,gsub,%like%
 
 **Apply**
 1. apply
 Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
 margins is a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
-```
+```r
  x <- cbind(x1 = 3, x2 = c(4:1, 2:5))
  dimnames(x)[[1]] <- letters[1:8]
 > x
@@ -475,7 +476,7 @@ margins is a vector giving the subscripts which the function will be applied ove
 apply(x, 2, mean, trim = .2)
 #x1 x2 
 # 3  3
-```r
+```
 2. lapply   
   将一个function联系运用到向量的每一个值, 直到序列得最后一个数值,但返回得总是list，且length跟输入的一样
 ```r
