@@ -282,6 +282,7 @@ Useful functions
 - Count: n(), n_distinct()
 
 - Logical: any(), all()
+- summarize multiple columes: https://dplyr.tidyverse.org/reference/summarise_all.html
 
 **n() count**
 ```r
