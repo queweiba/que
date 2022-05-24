@@ -514,3 +514,8 @@ mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
        USE.NAMES = TRUE)
 combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 ```
+If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:
+
+For a single argument function, use .
+For a two argument function, use .x and .y
+For more arguments, use ..1, ..2, ..3 etc
