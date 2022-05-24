@@ -516,6 +516,14 @@ combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 ```
 If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:
 
+##self-develped functions and aceoss function
+```r
+u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ round(.x,4)))
+gdf %>% mutate(across(v1:v2, ~ .x + rnorm(1)))
+mutate(across(c(1, 2), round))
+u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),as.numeric ))
+u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
+```
 For a single argument function, use .
 For a two argument function, use .x and .y
 For more arguments, use ..1, ..2, ..3 etc
