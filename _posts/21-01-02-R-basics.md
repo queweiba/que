@@ -239,29 +239,25 @@ v1 %in% v2
 ### 比较
 1. identical
 identical是比较严格的比较，如果只想比较数值可以用“==”
-```
+```r
 identical(1, 1.)   ## TRUE in R (both are stored as doubles)
 identical(1, as.integer(1)) ## FALSE, stored as different types
 identical(as.double(8), as.integer(8))
 #[1] FALSE
 as.double(8) == as.integer(8)
 #[1] TRUE
-```r
+```
 2. all.equal()
 all.equal(x, y) is a utility to compare R objects x and y testing ‘near equality’. If they are different, comparison is still made to some extent, and a report of the differences is returned.还可以用来比较list, environment and POSIXt
-```
+```r
 all.equal(pi, 355/113)
 #[1] "Mean relative difference: 8.491368e-08"
 #需要用tolerance来限制允许相似的位数
 all.equal(pi, 355/113,tolerance = 0.006)
 #[1] TRUE
 #安全起见最好用is.TRUE()如果需要返回loagical，因为all.equal有时候并不返回logical
-isTRUE(all.equal(pi, 355/113))
+is.TRUE(all.equal(pi, 355/113))
 #[1] FALSE
-```r
-### 替换字符串
-```r
-gron$AMT <- gsub(",", ".", gron$AMT) 
 ```
 
 ### 去除重复列
@@ -357,7 +353,7 @@ lag(1:5, default = 0)
 ```
 ### 日期
 1. as. date
-把character 转化为 日期用as.date ，会丢失掉时间的信息
+把character 转化为日期用as.date ，会丢失掉时间的信息
 ```r
 head(harMet_15Min$datetime)
 #[1] "2005-01-01T00:15" "2005-01-01T00:30" "2005-01-01T00:45"
@@ -395,9 +391,8 @@ unclass(timeDate)
 ```
 3. POSIXlt   
  When we convert a string to POSIXlt, and view it in R, it still looks similar to the POSIXct format. 
-
-    However, unclass() shows us that the data are stored differently. 
-   The POSIXlt class stores the hour, minute, second, day, month, and year separately.
+ However, unclass() shows us that the data are stored differently. 
+ The POSIXlt class stores the hour, minute, second, day, month, and year separately.
 ```r
 #Convert character data to POSIXlt date and time
 timeDatelt<- as.POSIXlt("2015-10-19 10:15")  
@@ -457,6 +452,31 @@ mutate(nAMT=n()-sum(is.na(AMT)))
 **字符串的查找和替换**
 grep,grepl,sub,gsub,%like%
 
+```r
+#grepl () --返回具有相应字母的在一个序列里的T or F
+#grep () 返回的是相应字母在一个序列里的位置
+grep("[a-z]", letters)
+#[1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+grepl("[a-z]", letters)
+#[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+
+#%like% 是grep()的简洁用法
+# NOT RUN {
+DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
+DT[Name %like% "^Mar"]
+DT[Name %ilike% "mar"]
+DT[Name %flike% "Mar"]
+# }
+
+#sub () 替换substring 中的第一个出现的词
+#gsub () 替换substring 中的所有出现的词
+x <- "aaabbb"
+sub("a", "c", x)           # Apply sub function in R
+# "caabbb"
+gsub("a", "c", x)          # Apply gsub function in R
+# "cccbbb"
+```
+
 **Apply**
 1. apply
 Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
@@ -514,9 +534,24 @@ mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
        USE.NAMES = TRUE)
 combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 ```
-If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:
+**多个列同时转换**
+1. across() makes it easy to apply the same transformation to multiple columns
+Note: across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
+```r
+across(.cols = everything(), .fns = NULL, ..., .names = NULL)
+```
+.fns
+Functions to apply to each of the selected columns. Possible values are:
+A function, e.g. mean.
+A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
+A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
+NULL: the default value, returns the selected columns in a data frame without applying a transformation. This is useful for when you want to use a function that takes a data frame.
 
-##self-develped functions and aceoss function
+**self-develped functions and aceoss function**
+If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:
+For a single argument function, use .
+For a two argument function, use .x and .y
+For more arguments, use ..1, ..2, ..3 etc
 ```r
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ round(.x,4)))
 gdf %>% mutate(across(v1:v2, ~ .x + rnorm(1)))
@@ -524,6 +559,4 @@ mutate(across(c(1, 2), round))
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),as.numeric ))
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
 ```
-For a single argument function, use .
-For a two argument function, use .x and .y
-For more arguments, use ..1, ..2, ..3 etc
+
