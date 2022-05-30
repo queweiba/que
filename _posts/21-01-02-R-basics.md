@@ -535,17 +535,17 @@ mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
 combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 ```
 **多个列同时转换**
-1. across() makes it easy to apply the same transformation to multiple columns
+1. across() makes it easy to apply the same transformation to multiple columns.  
 Note: across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
 ```r
 across(.cols = everything(), .fns = NULL, ..., .names = NULL)
 ```
-.fns
-Functions to apply to each of the selected columns. Possible values are:
-A function, e.g. mean.
-A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
-A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
-NULL: the default value, returns the selected columns in a data frame without applying a transformation. This is useful for when you want to use a function that takes a data frame.
+##.fns
+>Functions to apply to each of the selected columns. Possible values are:
+>>A function, e.g. mean.
+>>A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
+>>A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
+>>NULL: the default value, returns the selected columns in a data frame without applying a transformation. This is useful for when you want to use a function that takes a data frame.
 
 **self-develped functions and aceoss function**
 If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:
