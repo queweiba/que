@@ -540,18 +540,18 @@ Note: across() is used within functions like summarise() and mutate(), you can't
 ```r
 across(.cols = everything(), .fns = NULL, ..., .names = NULL)
 ```
-##.fns
+## .fns
 Functions to apply to each of the selected columns. Possible values are:
--A function, e.g. mean.
--A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
--A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
--NULL: the default value, returns the selected columns in a data frame without applying a transformation. This is useful for when you want to use a function that takes a data frame.
+- A function, e.g. mean.
+- A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
+- A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
+- NULL: the default value, returns the selected columns in a data frame without applying a transformation. This is useful for when you want to use a function that takes a data frame.
 
 **self-develped functions and aceoss function**
 If a formula, e.g. ~ .x + 2, it is converted to a function. There are three ways to refer to the arguments:  
-For a single argument function, use .  
-For a two argument function, use .x and .y  
-For more arguments, use ..1, ..2, ..3 etc
+- For a single argument function, use .  
+- For a two argument function, use .x and .y  
+- For more arguments, use ..1, ..2, ..3 etc
 ```r
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ round(.x,4)))
 gdf %>% mutate(across(v1:v2, ~ .x + rnorm(1)))
