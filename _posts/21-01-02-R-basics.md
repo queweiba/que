@@ -177,6 +177,14 @@ recode(num_vec, `2` = 20L, `4` = 40L)
     BW >2250 ~38.203
   )
   #dplyr::between() is a shortcut for x >= left & x <= right,返回的是T or F；
+  
+#the output values after TURE  specifies a value to output if none of the other conditions were true
+case_when(test_score_vector >= 90 ~ 'A'
+          ,test_score_vector >= 80 ~ 'B'
+          ,test_score_vector >= 70 ~ 'C'
+          ,test_score_vector >= 60 ~ 'D'
+          ,TRUE ~ 'F'
+          )
 ```
 
 ### 排序
