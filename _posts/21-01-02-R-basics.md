@@ -560,3 +560,17 @@ u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),as.numeric ))
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
 ```
 
+**group_by 多个变量的特殊性**
+>When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to >progressively roll-up a dataset.
+```r
+cars %>%
+  group_by(am, gear) %>%
+  summarise(n = n()) %>%
+  mutate(freq = n / sum(n))
+
+#   am gear  n      freq
+# 1  0    3 15 0.7894737
+# 2  0    4  4 0.2105263
+# 3  1    4  8 0.6153846
+# 4  1    5  5 0.3846154
+```
