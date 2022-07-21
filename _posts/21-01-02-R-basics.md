@@ -561,7 +561,7 @@ u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
 ```
 
 **group_by 多个变量的特殊性**
->When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to >progressively roll-up a dataset.
+>When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to progressively roll-up a dataset.
 ```r
 cars %>%
   group_by(am, gear) %>%
