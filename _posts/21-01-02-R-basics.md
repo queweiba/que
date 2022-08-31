@@ -162,6 +162,7 @@ recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
 6. dplyr的`case_when()`   
+
 ```r   
 #the left hand side must be logical.   
 #If none of the cases match, NA is used for right hand side(RHS).  
@@ -210,7 +211,9 @@ rename(dataset, newname=oldname)
 ```
 
 ### 两个数据条件配对
-1. match，The match() function returns a vector of the position of first occurrence of the vector1 in vector2. If the element of the vector1 does not exist in vector2, NA is returned. 即这个返回的是第二个序列在第一个序列中的位置。第一个序列在第二个序列中没有对应的值则为NA。
+1. match  
+
+The match() function returns a vector of the position of first occurrence of the vector1 in vector2. If the element of the vector1 does not exist in vector2, NA is returned. 即这个返回的是第二个序列在第一个序列中的位置。第一个序列在第二个序列中没有对应的值则为NA。
 ```r
 print(match(5, c(1,2,9,5,3,6,7,4,5)))
 #[1] 4
@@ -231,6 +234,7 @@ x
 #[1] 6 8 0 3
 ```
 nomatch option,如果想把NA替换为其他数字，可以使用match(..., nomatch=0)
+
 2. which () 这个返回的是True对应的位置
 ```r
 x <- c(1,5,8,4,6)
@@ -251,6 +255,7 @@ v1 %in% v2
 ```
 ### 比较
 1. identical
+
 identical是比较严格的比较，如果只想比较数值可以用“==”
 ```r
 identical(1, 1.)   ## TRUE in R (both are stored as doubles)
@@ -261,6 +266,7 @@ as.double(8) == as.integer(8)
 #[1] TRUE
 ```
 2. all.equal()
+
 all.equal(x, y) is a utility to compare R objects x and y testing ‘near equality’. If they are different, comparison is still made to some extent, and a report of the differences is returned.还可以用来比较list, environment and POSIXt
 ```r
 all.equal(pi, 355/113)
@@ -581,7 +587,9 @@ u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
 ```
 
 **group_by 多个变量的特殊性**
->When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to progressively roll-up a dataset.
+
+When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to progressively roll-up a dataset.
+
 ```r
 cars %>%
   group_by(am, gear) %>%
