@@ -193,7 +193,12 @@ case_when(test_score_vector >= 90 ~ 'A'
 ```r
 dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 ```
+2.  dplyr 的 `arrange()`     
 
+Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
+```r
+iris %>% arrange(across(starts_with("Sepal")))
+```
 ### 修改列的名字
 1. colnames（）
 ```r
@@ -324,7 +329,8 @@ na.approx(z, xout = d0 + 7, rule = 2)
 #        15 
 ```
 
-2. LOCF公式——Zoo:Generic function for replacing each NA with the most recent non-NA prior to it.
+2. LOCF公式
+- Zoo:Generic function for replacing each NA with the most recent non-NA prior to it.
 ```r
 na.locf(object, na.rm = TRUE, ...)
 ## Default S3 method:
@@ -342,6 +348,12 @@ na.locf0(x)
 #[1] NA NA  1  3  3  6  6
 na.locf(x,fromLast = T)
 #[1] 1 1 1 3 6 6
+```
+- tidyr 的 fill() 
+
+Fills missing values in selected columns using the previous entry. This is useful in the common output format where values are not repeated, they're recorded each time they change.
+```r
+fill(data, ..., .direction = c("down", "up"))
 ```
 3. Lag() or lead()
 
