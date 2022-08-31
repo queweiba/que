@@ -140,7 +140,7 @@ junk$nm <- revalue(junk$nm, c("B"="b"))
 
 5. dplyr 的`recode()`
 ```r
-char_vec <- sample(c("a", "b", "c"), 10, replace = TRUE)
+char_vec <- sample(c("a", "b", "c"), 10, replace = TRUE)  
 recode(char_vec, a = "Apple")
 #>  [1] "Apple" "b"     "Apple" "b"     "c"     "Apple" "c"     "c"     "b"    
 #> [10] "Apple"
@@ -161,12 +161,12 @@ num_vec <- c(1:4, NA)
 recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
-6. dplyr的`case_when()`  
+6. dplyr的`case_when()`   
 ```r
-#the left hand side must be logical. 
-#If none of the cases match, NA is used for right hand side(RHS).
-#All RHS values need to be of the same type. Inconsistent types will throw an error.
-# This applies also to NA values used in RHS: NA is logical, use typed values like NA_real_, NA_complex, NA_character_, NA_integer_ as appropriate.
+#the left hand side must be logical.   
+#If none of the cases match, NA is used for right hand side(RHS).  
+#All RHS values need to be of the same type. Inconsistent types will throw an error.   
+#This applies also to NA values used in RHS: NA is logical, use typed values like NA_real_, NA_complex, NA_character_, NA_integer_ as appropriate.
   p <- case_when(
     BW <=1000 ~24.615,
     between(BW,1001,1250) ~31.814,
