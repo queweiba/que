@@ -162,7 +162,7 @@ recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
 6. dplyr的`case_when()`   
-```r
+```r   
 #the left hand side must be logical.   
 #If none of the cases match, NA is used for right hand side(RHS).  
 #All RHS values need to be of the same type. Inconsistent types will throw an error.   
