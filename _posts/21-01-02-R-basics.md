@@ -161,6 +161,7 @@ num_vec <- c(1:4, NA)
 recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
+
 6. dplyr的`case_when()`   
 
 ```r   
@@ -194,9 +195,10 @@ case_when(test_score_vector >= 90 ~ 'A'
 ```r
 dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 ```
-2.  dplyr 的 `arrange()`     
 
-Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
+2. dplyr 的 `arrange()`     
+
+  Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
 ```r
 iris %>% arrange(across(starts_with("Sepal")))
 ```
