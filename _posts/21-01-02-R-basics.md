@@ -601,3 +601,9 @@ cars %>%
 # 3  1    4  8 0.6153846
 # 4  1    5  5 0.3846154
 ```
+
+**分割组别**  
+cut()
+```r
+Total_Erasmus$GA_Group <- cut(as.numeric(Total_Erasmus$GA_week), breaks = c(-Inf, 28, 32, 37, Inf) , c("<=28", "28-32", "32-37", ">37"), include.lowest=TRUE)
+```
