@@ -402,6 +402,8 @@ str(timeDate) #变成POSIXct class
 #POSIXct[1:1], format: "2015-10-19 10:15:00"
 timeDate
 ##[1] "2015-10-19 10:15:00 MDT"
+##useful sample
+#DOM=as.POSIXct(DOM,tz="Europe/Amsterdam",format= "%Y-%m-%d %H:%M")
 ```
 POSIXct stores date and time in seconds with the number of seconds beginning at 1 January 1970. Negative numbers are used to store dates prior to 1970.
   
