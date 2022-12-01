@@ -188,7 +188,13 @@ case_when(test_score_vector >= 90 ~ 'A'
           ,TRUE ~ 'F'
           )
 ```
-
+7. 其他switch()
+```r
+switch (expression, list) #可以替换一个list
+switch(input$var,
+                   "Percent White" = list(counties$white, "darkgreen", "% White")
+       )            
+```
 ### 排序
 
 1. 最基础的
