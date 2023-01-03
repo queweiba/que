@@ -362,11 +362,15 @@ na.locf0(x)
 na.locf(x,fromLast = T)
 #[1] 1 1 1 3 6 6
 ```
-- tidyr 的 fill() : Fills missing values in selected columns using the previous entry. This is useful in the common output format where values are not repeated, they're recorded each time they change.
+3. tidyr 的 fill() 
+
+Fills missing values in selected columns using the previous entry. This is useful in the common output format where values are not repeated, they're recorded each time they change. notice that return a dataset instead of a vector
+
 ```r
 fill(data, ..., .direction = c("down", "up"))
-```
-3. Lag() or lead()
+``` 
+
+4. Lag() or lead()
 
 寻找序列中前n个值dplyr::lag; 寻找序列中后n个的值dplyr::lead. 注意与R basic 的lag区分开
 ```r
