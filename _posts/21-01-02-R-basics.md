@@ -514,6 +514,9 @@ gsub("a", "c", x)          # Apply gsub function in R
 # "cccbbb"
 ```
 
+**分割字符串**
+
+
 **Apply**
 1. apply
 Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
