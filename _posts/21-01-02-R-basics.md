@@ -208,6 +208,12 @@ dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 ```r
 iris %>% arrange(across(starts_with("Sepal")))
 ```
+
+3. data.table
+```r
+dos<-dos[order[ID]]
+```
+
 ### 修改列的名字
 1. colnames（）
 ```r
@@ -216,6 +222,10 @@ colnames(weight)[4] <- "WT"
 2. dplyr 包里的rename ()
 ```r
 rename(dataset, newname=oldname)
+``` 
+3. data.table setname()
+```r
+setnames(x, old, new)
 ```
 
 ### 两个数据条件配对
@@ -486,35 +496,6 @@ df.tot$order <- ave(row.names(df.tot), df.tot$ID, FUN = seq_along)
 ```r
 mutate(nAMT=n()-sum(is.na(AMT)))
 ```
-**字符串的查找和替换**
-grep,grepl,sub,gsub,%like%
-
-```r
-#grepl () --返回具有相应字母的在一个序列里的T or F
-#grep () 返回的是相应字母在一个序列里的位置
-grep("[a-z]", letters)
-#[1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
-grepl("[a-z]", letters)
-#[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-
-#%like% 是grep()的简洁用法
-# NOT RUN {
-DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
-DT[Name %like% "^Mar"]
-DT[Name %ilike% "mar"]
-DT[Name %flike% "Mar"]
-# }
-
-#sub () 替换substring 中的第一个出现的词
-#gsub () 替换substring 中的所有出现的词
-x <- "aaabbb"
-sub("a", "c", x)           # Apply sub function in R
-# "caabbb"
-gsub("a", "c", x)          # Apply gsub function in R
-# "cccbbb"
-```
-
-**分割字符串**
 
 
 **Apply**
@@ -621,4 +602,68 @@ cars %>%
 cut()
 ```r
 Total_Erasmus$GA_Group <- cut(as.numeric(Total_Erasmus$GA_week), breaks = c(-Inf, 28, 32, 37, Inf) , c("<=28", "28-32", "32-37", ">37"), include.lowest=TRUE)
+```
+
+
+## 字符串
+**字符串的查找和替换**
+grep,grepl,sub,gsub,%like%
+
+```r
+#grepl () --返回具有相应字母的在一个序列里的T or F
+#grep () 返回的是相应字母在一个序列里的位置
+grep("[a-z]", letters)
+#[1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+grepl("[a-z]", letters)
+#[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+
+#%like% 是grep()的简洁用法
+# NOT RUN {
+DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
+DT[Name %like% "^Mar"]
+DT[Name %ilike% "mar"]
+DT[Name %flike% "Mar"]
+# }
+
+#sub () 替换substring 中的第一个出现的词
+#gsub () 替换substring 中的所有出现的词
+x <- "aaabbb"
+sub("a", "c", x)           # Apply sub function in R
+# "caabbb"
+gsub("a", "c", x)          # Apply gsub function in R
+# "cccbbb"
+```
+
+**分割字符串**
+1. dplyr separate(), 返回的是dataset, 它可以分开字符串或者数字，根据是第几个数字
+```
+separate(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+)
+```
+2. Stringr. split a vector of strings into a matrix of substrings
+```
+library(stringr)
+
+df[c('col1', 'col2')] <- str_split_fixed(df$original_column, 'sep', 2)
+```
+
+**提取字符串的数字**
+1. readr 里面的parse_number()  
+This parses the first number it finds, dropping any non-numeric characters before the first number and all characters after the first number. The grouping mark specified by the locale is ignored inside the number.
+```r
+parse_number("$1,000") ## leading `$` and grouping character `,` ignored
+#> [1] 1000
+parse_number("euro1,000") ## leading non-numeric euro ignored
+#> [1] 1000
+parse_number("t1000t1000") ## only parses first number found
+#> [1] 1000
 ```
