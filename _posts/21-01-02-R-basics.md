@@ -606,7 +606,7 @@ Total_Erasmus$GA_Group <- cut(as.numeric(Total_Erasmus$GA_week), breaks = c(-Inf
 
 
 ## 字符串
-**字符串的查找和替换**
+**字符串的查找和替换** 
 grep,grepl,sub,gsub,%like%
 
 ```r
