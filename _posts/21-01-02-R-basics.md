@@ -435,7 +435,17 @@ unclass(timeDate)
 ##[1] 1445271300
 ##attr(,"tzone")
 ##[1] "
+``` 
+To force a time zone change without change of time
+```r
+library(lubridate)
+hu<- force_tz(hu, tzone = "Europe/Amsterdam")
 ```
+If you want to change the time display and also the timezone
+```r
+#attr(hu$SAMPLEMOMENT, "tzone") <- "Europe/Amsterdam", this will definitely change the time display
+``` 
+
 3. POSIXlt   
  When we convert a string to POSIXlt, and view it in R, it still looks similar to the POSIXct format. 
  However, unclass() shows us that the data are stored differently. 
