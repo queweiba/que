@@ -17,3 +17,11 @@ delete a column
 ```r
 Comb[,("P10"):=NULL]
 ``
+
+```r
+IHour[,TIME:=c(1:72),by=c("ID","OCC")] 
+#or
+IHour[,TIME:=c(1:72),by=.(ID,OCC)] 
+IHour[,TIME:=c(1:72),by=ID]
+```
+`n()` must only be used inside dplyr verbs.
