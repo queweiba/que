@@ -1,0 +1,15 @@
+difference between  
+```r
+DT[ , .(region)]  #this 1-column data.table
+DT[,region]  #this return a vector
+DT[,.(region), with=F] #this return a
+DT[ , region, with = FALSE] #return the names contained in the enviroment variable "region"
+```
+
+select column
+```r
+DT[,c("columnRed","columnOrange","columnYellow")]
+DT[,columnRed:columnViolet] 
+
+
+``
