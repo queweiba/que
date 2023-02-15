@@ -10,6 +10,10 @@ select column
 ```r
 DT[,c("columnRed","columnOrange","columnYellow")]
 DT[,columnRed:columnViolet] 
+Comb[,("P10"):=NULL]
+``
 
-
+delete a column
+```r
+Comb[,("P10"):=NULL]
 ``
