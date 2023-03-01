@@ -564,6 +564,7 @@ z
 mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
        USE.NAMES = TRUE)
 combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
+
 ```
 **多个列同时转换**
 1. across() makes it easy to apply the same transformation to multiple columns.  
@@ -589,6 +590,13 @@ gdf %>% mutate(across(v1:v2, ~ .x + rnorm(1)))
 mutate(across(c(1, 2), round))
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),as.numeric ))
 u_raw <- u_raw %>% mutate(across(.cols =ends_with("mg_ml"),~ ./1000))
+```
+
+### .mutate if
+```r
+library(dplyr)
+df %>% 
+ mutate_if(is.numeric, round)
 ```
 
 **group_by 多个变量的特殊性**
