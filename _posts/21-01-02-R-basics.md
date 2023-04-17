@@ -17,7 +17,10 @@ row.names==NULL.
 #通常情况下不用设置row.names也能使用默认排序列，若需用数据中的列排序则需 row.names==列名 
 #Using NULL for the value resets the row names to seq_len(nrow(x)), regarded as ‘automatic'
 ```
-
+5. data.table
+```r
+fread("")
+```
 
 ### 筛选数据
 
@@ -40,25 +43,7 @@ grepl("[a-z]", letters)
 #[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 ```
 
-2. dplyr包的filter()
-```r
-filter(.data, ..., .preserve = FALSE)
-#注意：filter的筛选命令生效是在条件（condition，有点类似于循环语句）为「TRUE」的情况下才能进行，往往并不包括「NA」值和「FALSE」条件;
-#因此，如果筛选缺失值，不能直接使用比较运算符，只能通过R中的内置缺失值判断函数来进行「TRUE的操作」，比如：is.na(x)
-df <- tibble(x = c(1, NA, 3))
-filter(df, is.na(x) | x > 1)
-#A tibble: 2 x 1
-#1    NA
-#2     3
-```
-
-3. 用dplyr 的 `slice ()` 根据行的位置来选择
-```r
-my_data <- as_tibble(iris)
-my_data
-my_data %>% slice(1:6)
-```
-4. 最基础的
+2. base裏的其他選擇
 ```r
 weight<-weight[weight$ID %in% idconc,] #用逻辑筛选
 my_data[c(1:3),]  #根据行的位置来选择
@@ -71,6 +56,33 @@ read.csv(row.names=1)#将第一列设置为行名，然后就可以用行名筛�
 obs1<-obs[-(obs$ID==2016&obs$SAMPLENUMBER==201605),]
 #因为会产生
 #[1]  0  0  0  0  0  0  0  0  0  0  0 -1  0  0  0  0  0  0  0  
+```
+
+3. dplyr包的filter()
+```r
+filter(.data, ..., .preserve = FALSE)
+#注意：filter的筛选命令生效是在条件（condition，有点类似于循环语句）为「TRUE」的情况下才能进行，往往并不包括「NA」值和「FALSE」条件;
+#因此，如果筛选缺失值，不能直接使用比较运算符，只能通过R中的内置缺失值判断函数来进行「TRUE的操作」，比如：is.na(x)
+df <- tibble(x = c(1, NA, 3))
+filter(df, is.na(x) | x > 1)
+#A tibble: 2 x 1
+#1    NA
+#2     3
+```
+
+4. 用dplyr 的 `slice ()` 根据行的位置来选择
+```r
+my_data <- as_tibble(iris)
+my_data
+my_data %>% slice(1:6)
+```
+
+5. data.table()
+```r
+DT[3:5,] #Select 3rd to 5th row
+DT[3:5] #Select 3rd to 5th row
+DT[V2=="A"] #Select all rows that have value A in column V2
+DT[V2 %in% c("A","C")] #Select all rows that have value A or C in column V2
 ```
 
 **筛选列--根据列名**
@@ -95,6 +107,12 @@ doswt <- dos[,c("ID","samplemoment")]#通过列名
 char<-char[,-grep("birthdate|DOB|time",colnames(char))] #grep 返回的也是位置
 dataly[ , -which(colnames(dataly) %in% c("b","d"))]  #which 返回的是位置而不是判断
 dat[dat$Group == 'Control', ] #通过判断
+```
+
+4. data.table()
+```r
+DT[,V2] #return V2 as a vector
+DT[,.(V2,V3)] #return V2 and V3 as a data.table
 ```
 
 ## 条件替换
@@ -195,6 +213,12 @@ switch(input$var,
                    "Percent White" = list(counties$white, "darkgreen", "% White")
        )            
 ```
+
+8. data.table()
+```r
+DT[V2=="A",V2:="C"]
+```
+
 ### 排序
 
 1. 最基础的
