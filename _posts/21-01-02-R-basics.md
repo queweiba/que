@@ -229,6 +229,8 @@ dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
 ```r
 iris %>% arrange(across(starts_with("Sepal")))
+#use desc() to sort a variable in descending order.
+by_cyl %>% arrange(desc(wt))
 ```
 
 3. data.table
