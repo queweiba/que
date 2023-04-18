@@ -25,7 +25,6 @@ fread("")
 ### 筛选数据
 
 **筛选行**
-
 1. base 里的subset()
 ```r
 subset(x, subset, select, drop = FALSE, ...)
@@ -227,8 +226,7 @@ dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 ```
 
 2. dplyr 的 `arrange()`     
-
-  Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
+Unlike other dplyr verbs, arrange() largely ignores grouping; you need to explicitly mention grouping variables (or use .by_group = TRUE) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.   
 ```r
 iris %>% arrange(across(starts_with("Sepal")))
 ```
@@ -252,8 +250,9 @@ rename(dataset, newname=oldname)
 setnames(x, old, new)
 ```
 
-### 两个数据条件配对
-1. match: The match() function returns a vector of the position of first occurrence of the vector1 in vector2. If the element of the vector1 does not exist in vector2, NA is returned. 即这个返回的是第二个序列在第一个序列中的位置。第一个序列在第二个序列中没有对应的值则为NA。
+### 查找配對
+1. match: The match() function returns a vector of the position of first occurrence of the vector1 in vector2. If the element of the vector1 does not exist in vector2, NA is returned. 即这个返回的是第二个序列在第一个序列中的位置。第一个序列在第二个序列中没有对应的值则为NA。 
+nomatch option,如果想把NA替换为其他数字，可以使用match(..., nomatch=0)
 ```r
 print(match(5, c(1,2,9,5,3,6,7,4,5)))
 #[1] 4
@@ -273,7 +272,7 @@ x <- match(v1,v2, nomatch = 0)
 x
 #[1] 6 8 0 3
 ```
-nomatch option,如果想把NA替换为其他数字，可以使用match(..., nomatch=0)
+
 
 2. which () 这个返回的是True对应的位置
 ```r
@@ -294,6 +293,29 @@ v2 <- c("g1","x2","d2","e2","f1","a1","c2","b2","a2")
 v1 %in% v2
 #[1] TRUE TRUE FALSE TRUE
 ```
+
+### 合并數據
+1. `base:: merge()`
+```r
+merge(x, y, by = intersect(names(x), names(y)),
+      by.x = by, by.y = by, all = FALSE, all.x = all, all.y = all,
+      sort = TRUE, suffixes = c(".x",".y"), no.dups = TRUE,
+      incomparables = NULL, …)
+#by, by.x, by,y: specifications of the columns used for merging. See ‘Details'
+#no.dups: logical indicating that suffixes are appended in more cases to avoid duplicated column names in the result. This was implicitly false before R version 3.5.0.
+```
+3. `dplyr:: inner join`: only keeps observations from x that have a matching key in y
+4. `dplyr:: outer join`: keep observations that appear in at least one of the data frames
+- a `left_join()` keeps all observations in x
+- a `right_join()` keeps all observations in y
+- a `full_join()` keeps all observations in x and y
+
+4. `data.tables`裏的join
+```r
+dt_a[dt_b, on = .(b = y)] #join data.tables on rows with equal values.
+dt_a[dt_b, on = .(b = y, c > z)] #join data.tables on rows with equal and unequal values.
+```
+
 ### 比较
 1. identical
 
@@ -383,7 +405,7 @@ na.locf(object, na.rm = TRUE, ...)
 ## Default S3 method:
 na.locf(object, na.rm = TRUE, fromLast, rev,
         maxgap = Inf, rule = 2, ...)
-na.locf0(object, fromLast = FALSE, maxgap = Inf, coredata = NULL)
+na.locf0(object, fromLast = FALSE, maxgap = Inf, coredata = NULL,na.rm=FALSE)
 #The function na.locf0 is the workhorse function underlying the default na.locf method. It has more limited capabilities but is faster for the special cases it covers. Implicitly, it uses na.rm=FALSE.
 #example
 x<-c(NA,NA,1,3,NA,6,NA)
@@ -420,6 +442,13 @@ dplyr::lead(1:5)
 lag(1:5, default = 0)
 #[1] 0 1 2 3 4
 ```
+
+5. data.table::nafill: 注意only supports numeric columns
+```r
+Total_Erasmus[,GEBDATUM:=nafill(GEBDATUM,"locf"),by=.(PATIENTNR)]
+Total_Erasmus[,GA_week:=nafill(GA_week,"nocb"),by=.(PATIENTNR)]
+```
+
 ### 日期
 1. as. date
 把character 转化为日期用as.date ，会丢失掉时间的信息
@@ -591,12 +620,20 @@ combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 
 ```
 **多个列同时转换**
-1. across() makes it easy to apply the same transformation to multiple columns.  
+1. dplyr:: across() makes it easy to apply the same transformation to multiple columns, by defining using `.cols=`
 Note: across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
 ```r
 across(.cols = everything(), .fns = NULL, ..., .names = NULL)
 ```
-### .fns
+
+2. data.table`.SD` and `.SDcols`
+```r
+#calculate sum of V3 and V4 in .SD grouped by V2
+DT[,lappy(.SD,sum),by=V2,.SDcols=c("V3","V4")]
+```
+
+
+### Functions
 Functions to apply to each of the selected columns. Possible values are:
 - A function, e.g. mean.
 - A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
@@ -641,7 +678,8 @@ cars %>%
 ```
 
 **分割组别**  
-cut()
+cut() 
+cut(x, breaks, labels = NULL,include.lowest = FALSE, right = TRUE, dig.lab = 3,ordered_result = FALSE, …)
 ```r
 Total_Erasmus$GA_Group <- cut(as.numeric(Total_Erasmus$GA_week), breaks = c(-Inf, 28, 32, 37, Inf) , c("<=28", "28-32", "32-37", ">37"), include.lowest=TRUE)
 ```
@@ -677,7 +715,7 @@ gsub("a", "c", x)          # Apply gsub function in R
 ```
 
 **分割字符串**
-1. dplyr separate(), 返回的是dataset, 它可以分开字符串或者数字，根据是第几个数字
+1. dplyr::separate(), 返回的是dataset, 它可以分开字符串或者数字，根据是第几个数字
 ```
 separate(
   data,
@@ -691,7 +729,7 @@ separate(
   ...
 )
 ```
-2. Stringr. split a vector of strings into a matrix of substrings
+2. Stringr::split() a vector of strings into a matrix of substrings
 ```
 library(stringr)
 
