@@ -303,6 +303,15 @@ merge(x, y, by = intersect(names(x), names(y)),
       incomparables = NULL, …)
 #by, by.x, by,y: specifications of the columns used for merging. See ‘Details'
 #no.dups: logical indicating that suffixes are appended in more cases to avoid duplicated column names in the result. This was implicitly false before R version 3.5.0.
+
+#inner join
+Result <- merge(Employees,Departments, all=F)
+#left join
+Result <- merge(Employees,Departments, all.x=TRUE)
+#right join
+Result <- merge(Employees,Departments, all.y=TRUE)
+#full join
+Result <- merge(Employees,Departments, all=TRUE)
 ```
 3. `dplyr:: inner join`: only keeps observations from x that have a matching key in y
 4. `dplyr:: outer join`: keep observations that appear in at least one of the data frames
@@ -310,10 +319,17 @@ merge(x, y, by = intersect(names(x), names(y)),
 - a `right_join()` keeps all observations in y
 - a `full_join()` keeps all observations in x and y
 
-4. `data.tables`裏的join
+5. `data.tables`裏的join
 ```r
 dt_a[dt_b, on = .(b = y)] #join data.tables on rows with equal values.
 dt_a[dt_b, on = .(b = y, c > z)] #join data.tables on rows with equal and unequal values.
+
+#inner join
+X[Y, nomatch=0]
+#left join
+Y[X]
+#right join
+X[Y]
 ```
 
 ### 比较
