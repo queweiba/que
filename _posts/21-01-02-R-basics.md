@@ -361,10 +361,32 @@ is.TRUE(all.equal(pi, 355/113))
 ```
 
 ### 去除重复列
+1. base裏的`duplicated`
 ```r
 df.PNA <- df.tot[!duplicated(df.tot$ID),] 
 ```
 
+2. dplyr裏的`distinct`
+```r
+df <- tibble(
+  g = c(1, 1, 2, 2, 2),
+  x = c(1, 1, 2, 1, 2),
+  y = c(3, 2, 1, 3, 1)
+)
+df <- df %>% group_by(g)
+
+# With grouped data frames, distinctness is computed within each group
+df %>% distinct(x)
+#> # A tibble: 3 × 2
+#> # Groups:   g [2]
+#>       g     x
+#>   <dbl> <dbl>
+#> 1     1     1
+#> 2     2     2
+#> 3     2     1
+```
+
+3.data.table
 ### 统计分析：Summarise
 Useful functions
 - Center: mean(), median()
