@@ -1,4 +1,4 @@
-#dfference between exponentioal and power function
+## dfference between exponentioal and power function
 1. power
 - plot: When plotting power function, the log(y) versus log(x) plot is linear with the slope being exponent a. y=x^a.  
 - relationship: When x2 is two-fold the x1, then y2 is 2^a fold the y1.  
