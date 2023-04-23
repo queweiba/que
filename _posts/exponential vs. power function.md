@@ -11,7 +11,9 @@ Ln(y1/y2)=k*(x1-x2)
 k=Ln(y1/y2)/(x1-x2)
 Y1/y2=e^(k*(x1-x2))=(e^k)^(x1-x2) let a=e^k, then y1/y2=a^(x1-x2)
 
-![alt text](relative%20path/../../figure.png?raw=true)
+![plot comparison](relative%20path/../../figure.png?raw=true)
+
+
 How to get the initial estimate of k exponential function when we already know the MLE of a in the power function?
 
 
