@@ -1,6 +1,11 @@
-When plotting power function, the log(y) versus log(x) plot is linear with the slope being exponent a. y=x^a. 
-When x2 is two-fold the x1, then y2 is 2^a fold the y1. 
-When plotting exponential function, the log(y) versus x plot is linear with the slope being the k. y=e^(x*k)=(e^k)^x=a^x, if a=e^k
+#dfference between exponentioal and power function
+1. power
+- plot: When plotting power function, the log(y) versus log(x) plot is linear with the slope being exponent a. y=x^a.  
+- relationship: When x2 is two-fold the x1, then y2 is 2^a fold the y1.  
+- trend: starts at (0,0)
+2. exponentional 
+- plot: When plotting exponential function, the log(y) versus x plot is linear with the slope being the k. y=e^(x*k)=(e^k)^x=a^x, if a=e^k
+- trend: starts at (0,1), first increase slowly becasue linear x is not fast, then increase very fast
 Ln(y1)-ln(y2)=k*(x1-x2)
 Ln(y1/y2)=k*(x1-x2)
 k=Ln(y1/y2)/(x1-x2)
