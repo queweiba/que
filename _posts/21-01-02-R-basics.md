@@ -298,13 +298,18 @@ v1 %in% v2
 
 4. %like% 类似于SQL的code，有两个包有这个function, data.table() and DescTools()，两个包的使用方法不同
 ```r
-#data.table的%like%是base::grepl的shorthand，只能查找一个字符
+#data.table的%like%是base::grepl的shorthand
 DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
 DT[Name %like% "^Mar"] #^ means start with
 DT[Name %like% "ry$"] #$ means end  with
 DT[Name %like% "ry$"] #$ means end  with
+DT[Name %like% "ry$|Mar^"] #find multiple pattern
+#or
+k <- c("ry$","Mar")
+DT[Name %like% paste(k,collapse="|")] 
 
-#DescTools()的%like% 可以查找多个字符
+
+#DescTools()的%like% 和 %like any% 可以查找多个字符
 # find names ending on "or"
 names(d.pizza) %like% "%or"
 
