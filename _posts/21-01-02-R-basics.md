@@ -296,6 +296,29 @@ v1 %in% v2
 #[1] TRUE TRUE FALSE TRUE
 ```
 
+4. %like% 类似于SQL的code，有两个包有这个function, data.table() and DescTools()，两个包的使用方法不同
+```r
+#data.table的%like%是base::grepl的shorthand，只能查找一个字符
+DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
+DT[Name %like% "^Mar"] #^ means start with
+DT[Name %like% "ry$"] #$ means end  with
+DT[Name %like% "ry$"] #$ means end  with
+
+#DescTools()的%like% 可以查找多个字符
+# find names ending on "or"
+names(d.pizza) %like% "%or"
+
+# find names starting with "d"
+names(d.pizza) %like% "d%"
+
+# ... containing er?
+names(d.pizza) %like% "%er%"
+
+# and combined, search for a name containing "un", ending on "or"
+# or beginning with "F"
+levels(d.pizza$driver) %like any% c("%un%", "%or", "F%")
+```
+
 ### 合并數據
 1. `base:: merge()`
 ```r
@@ -737,7 +760,7 @@ grep("[a-z]", letters)
 grepl("[a-z]", letters)
 #[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 
-#%like% 是grep()的简洁用法
+#%like% 是grep()的简洁用法，在data.table()包里
 # NOT RUN {
 DT = data.table(Name=c("Mary","George","Martha"), Salary=c(2,3,4))
 DT[Name %like% "^Mar"]
