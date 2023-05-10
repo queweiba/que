@@ -325,7 +325,7 @@ levels(d.pizza$driver) %like any% c("%un%", "%or", "F%")
 ```
 
 ### 合并數據
-1. `base:: merge()`
+1. `base:: merge()` By default the data frames are merged on the columns with names they both have, but separate specifications of the columns can be given by by.x and by.y. The rows in the two data frames that match on the specified columns are extracted, and joined together. If there is more than one match, all possible matches contribute one row each. 
 ```r
 merge(x, y, by = intersect(names(x), names(y)),
       by.x = by, by.y = by, all = FALSE, all.x = all, all.y = all,
