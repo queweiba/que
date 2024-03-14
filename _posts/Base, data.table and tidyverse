@@ -1,0 +1,16 @@
+1. select the row
+2. selection the column
+- based on character vector
+ * base
+```{r}
+tb
+tb[c("foo", "bar")]
+```
+ * data.table
+```{r}
+colnames<- c("foo", "bar")
+tb[,..colnames]
+#or
+tb[,colnames, with=F]
+```
+- based on column number
