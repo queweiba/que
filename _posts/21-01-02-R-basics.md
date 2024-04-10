@@ -815,3 +815,14 @@ parse_number("euro1,000") ## leading non-numeric euro ignored
 parse_number("t1000t1000") ## only parses first number found
 #> [1] 1000
 ```
+
+**combien string**
+1. `r paste` and `r pasteo`
+```r
+#differences between collapse and sep
+s<- round(rnorm(10))
+paste(s,collapse =  "-")
+paste(s,sep =  "-")
+
+```
+
