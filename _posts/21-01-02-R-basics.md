@@ -822,7 +822,8 @@ parse_number("t1000t1000") ## only parses first number found
 #differences between collapse and sep
 s<- round(rnorm(10))
 paste(s,collapse =  "-")
+#[1] "0-0-0--1-0--1-0--1-1-0"
 paste(s,sep =  "-")
-
+#[1] "0"  "0"  "0"  "-1" "0"  "-1" "0"  "-1" "1"  "0" 
 ```
 
