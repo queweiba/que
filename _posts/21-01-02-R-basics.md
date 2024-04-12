@@ -818,6 +818,9 @@ parse_number("t1000t1000") ## only parses first number found
 
 **combien string**
 1. `r paste` and `r pasteo`
+for input of length 1
+
+
 ```r
 #differences between collapse and sep
 s<- round(rnorm(10))
