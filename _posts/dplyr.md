@@ -21,3 +21,9 @@ to prevent this, we use `r {}`
 ```{r}
 list(a=1) %>% {'/' (.$a,2)}
 # ```
+
+# Meta programming
+## Data masking
+You can use dara variables as it they were vallables in the enviroment.
+## Data selection
+You can choose valables based on their position, names , or type.
