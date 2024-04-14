@@ -120,7 +120,7 @@ DT[,.(V2,V3)] #return V2 and V3 as a data.table
 gsample$Continent <- with(gsample, ifelse(MAKE=='HOLDEN', 'AUS', Continent))
 ```
 
-2. 基础的
+2. base
 ```r
 gsample$Continent[gsample$MAKE=='HOLDEN'] <- 'AUS'
 ```
@@ -205,7 +205,7 @@ case_when(test_score_vector >= 90 ~ 'A'
           ,TRUE ~ 'F'
           )
 ```
-7. 其他switch()
+7. `base::switch()`
 ```r
 switch (expression, list) #可以替换一个list
 switch(input$var,
@@ -430,13 +430,20 @@ Useful functions
 - Logical: any(), all()
 - summarize multiple columes: https://dplyr.tidyverse.org/reference/summarise_all.html
 
-**n() count**
+**n()** 
+`n()` is not a dplyr verb. It can only be used inside another dplyr verb such as inside summarize: `BOD %>% summarize(n = n())`. It outputs a numeric scalar
 ```r
 if (require("nycflights13")) {
 carriers <- group_by(flights, carrier)
 summarise(carriers, n())
 mutate(carriers, n = n())
 filter(carriers, n() < 100)
+```
+
+**`dyplyr::count()`** 
+`count()` lets you quickly count the unique values of one or more variables: `df %>% count(a, b)` is roughly equivalent to `df %>% group_by(a, b) %>% summarise(n = n())`. It returns a tibble, not a vector
+```{r}
+starwars %>% count(species, sort = TRUE)#grouped by species
 ```
 ### Interpolation
 1. zoo::na.approx
