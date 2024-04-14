@@ -430,7 +430,8 @@ Useful functions
 - Logical: any(), all()
 - summarize multiple columes: https://dplyr.tidyverse.org/reference/summarise_all.html
 
-**n()** 
+**n()**  
+
 `n()` is not a dplyr verb. It can only be used inside another dplyr verb such as inside summarize: `BOD %>% summarize(n = n())`. It outputs a numeric scalar
 ```r
 if (require("nycflights13")) {
@@ -441,6 +442,7 @@ filter(carriers, n() < 100)
 ```
 
 **`dyplyr::count()`** 
+
 `count()` lets you quickly count the unique values of one or more variables: `df %>% count(a, b)` is roughly equivalent to `df %>% group_by(a, b) %>% summarise(n = n())`. It returns a tibble, not a vector
 ```{r}
 starwars %>% count(species, sort = TRUE)#grouped by species
