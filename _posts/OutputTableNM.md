@@ -40,3 +40,10 @@ kable(iris2, booktabs = TRUE) %>%
   add_header_above(c("Length" = 2, "Width" = 2, " " = 1)) %>% 
   add_header_above(c("Measurements" = 4, "More attributes" = 1))
 ```
+  - `pack_rows()` adds additonal rows for groups based on the original row number
+```{r}
+iris3 <- iris[c(1:2, 51:54, 101:103), ]
+kable(iris3[, 1:4], booktabs = TRUE) %>% pack_rows(
+  index = c("setosa" = 2, "versicolor" = 4, "virginica" = 3)
+)
+```
