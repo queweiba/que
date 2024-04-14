@@ -32,7 +32,7 @@ kable(head(iris, 5), align = 'c', booktabs = TRUE) %>%
   column_spec(5, strikeout = TRUE)
 ```
 - group rows and columns.
-  - This is to header that can be grouped according to current column numbers
+  - `r add_header_above` to header that can be grouped according to current column numbers
 ```{r}
 iris2 <- iris[1:5, c(1, 3, 2, 4, 5)]
 names(iris2) <- gsub('[.].+', '', names(iris2))
