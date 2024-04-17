@@ -56,3 +56,5 @@ union(x, y)
 intersect(x, y)
 setdiff(x, y)
 setequal(x, y)
+
+transmute()
