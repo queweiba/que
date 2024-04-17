@@ -1,4 +1,5 @@
 # Xpose
+xpose was designed as a ggplot2-based alternative to xpose4. xpose aims to reduce the post processing burden and improve diagnostics commonly associated the development of non-linear mixed effect models.
 ```r
 library(xpose)
 xpdb <- xpose_data(runno = '001')
