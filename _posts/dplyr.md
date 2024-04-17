@@ -58,3 +58,5 @@ setdiff(x, y)
 setequal(x, y)
 
 transmute()
+
+# fill() returns a data.frame
