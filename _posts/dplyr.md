@@ -60,3 +60,5 @@ setequal(x, y)
 transmute()
 
 # fill() returns a data.frame
+# replace_na
+# group_mutate add_row
