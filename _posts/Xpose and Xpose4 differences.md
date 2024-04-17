@@ -14,5 +14,13 @@ It is a huge list with S3 data.frame
 - $files this gives you the .cor .cov .ext and .phi files
 
 Common functions from Xpose
+- model summary `summary(xpdb, problem = 1)`
+- GOF
+  - `dv_vs_ipred(xpdb)`
+  - `ind_plots(xpdb, page = 1)`
+  - `xpdb %>% vpc_data(stratify = 'SEX', opt = vpc_opt(n_bins = 7, lloq = 0.1)) %>% vpc()`
+  - `eta_distrib(xpdb, labeller = 'label_value')`
+  - `prm_vs_iteration(xpdb, labeller = 'label_value')`
+
 
 # Xpose
