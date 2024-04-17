@@ -20,10 +20,39 @@ list(a=1) %>% '/' (.$a,2)
 to prevent this, we use `r {}`
 ```{r}
 list(a=1) %>% {'/' (.$a,2)}
-# ```
+```
 
 # Meta programming
 ## Data masking
 You can use dara variables as it they were vallables in the enviroment.
 ## Data selection
 You can choose valables based on their position, names , or type.
+
+# Set function
+Set operations
+Description
+Perform set operations using the rows of a data frame.
+
+intersect(x, y) finds all rows in both x and y.
+
+union(x, y) finds all rows in either x or y, excluding duplicates.
+
+union_all(x, y) finds all rows in either x or y, including duplicates.
+
+setdiff(x, y) finds all rows in x that aren't in y.
+
+symdiff(x, y) computes the symmetric difference, i.e. all rows in x that aren't in y and all rows in y that aren't in x.
+
+setequal(x, y) returns TRUE if x and y contain the same rows (ignoring order).
+
+Note that intersect(), union(), setdiff(), and symdiff() remove duplicates in x and y.
+
+Set Operations
+Description
+Performs set union, intersection, (asymmetric!) difference, equality and membership on two vectors.
+
+Usage
+union(x, y)
+intersect(x, y)
+setdiff(x, y)
+setequal(x, y)
