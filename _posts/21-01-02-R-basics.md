@@ -840,6 +840,8 @@ paste(s,sep =  "-")
 #[1] "0"  "0"  "0"  "-1" "0"  "-1" "0"  "-1" "1"  "0" 
 ```
 
+2. table function for a dataframe
+
 **Union selection**
 1. base::union, setdiff
 ```r
