@@ -831,6 +831,7 @@ for input of length 1
 
 
 ```r
+
 #differences between collapse and sep
 s<- round(rnorm(10))
 paste(s,collapse =  "-")
@@ -839,3 +840,10 @@ paste(s,sep =  "-")
 #[1] "0"  "0"  "0"  "-1" "0"  "-1" "0"  "-1" "1"  "0" 
 ```
 
+**Union selection**
+1. base::union, setdiff
+```r
+
+```
+
+2. cumsum
