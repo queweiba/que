@@ -24,4 +24,4 @@ IHour[,TIME:=c(1:72),by=c("ID","OCC")]
 IHour[,TIME:=c(1:72),by=.(ID,OCC)] 
 IHour[,TIME:=c(1:72),by=ID]
 ```
-`n()` must only be used inside dplyr verbs.
+`n()` must only be used inside dplyr verbs. because in data.table the inside count is ?
