@@ -23,6 +23,8 @@ It is a huge list with S3 data.frame
   - `xpdb %>% vpc_data(stratify = 'SEX', opt = vpc_opt(n_bins = 7, lloq = 0.1)) %>% vpc()`
   - `eta_distrib(xpdb, labeller = 'label_value')`
   - `prm_vs_iteration(xpdb, labeller = 'label_value')`
+- Get parameter
+  -`get_prm {xpose}`
 
 
 # Xpose
