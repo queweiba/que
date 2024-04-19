@@ -28,6 +28,17 @@ You can use dara variables as it they were vallables in the enviroment.
 ## Data selection
 You can choose valables based on their position, names , or type.
 
+{}is like a mask for variable, it can pass variable to the dplyr
+{{}} is what?
+mutate can do the computation, with across it can do multiple columns 
+dplyr has certainly facilitate the data programming for the newbies for simple tasks but has makes it very difficult to conduct complicated jobs without digging into their deceptively simple functions.
+I think it is generally quite complicated to understand at what step what thing will happen. understanding this will differtiate a normal programmer to a excellent programmer
+
+```{r}
+data %>% mutate(a=x+y) #mutate create an environment to create a new variable without data$a
+data %>% mutate(across(.col=c(a,b,c),.fun=mean) #with across, mutate can apply the same function for a list of column selected by across, but it seems that the function can also be applied to the three column together as inputs if no functions is selected
+
+```
 # Set function
 Set operations
 Description
