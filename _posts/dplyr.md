@@ -62,3 +62,5 @@ transmute()
 # fill() returns a data.frame
 # replace_na
 # group_mutate add_row
+slice can be used to replicate
+across can be used to selecte multiple columns at once to proceed
