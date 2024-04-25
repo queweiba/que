@@ -24,6 +24,17 @@ row.names==NULL.
 ```r
 fread("")
 ```
+### Check the dataset
+1. base
+```r
+table(dataset$ID,useNA = "always") 
+```
+
+2. dplyr
+```r
+glimpse(dataset)
+summary(dataset %>% mutate_all(factor))
+```
 
 ### 筛选数据
 
