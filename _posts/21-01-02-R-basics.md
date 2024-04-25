@@ -1,3 +1,6 @@
+### Load a package
+library or require?
+If not used inside a function, `library` is usually used. while `require` is used inside functions, as it outputs a warning and continues if the package is not found, whereas library will throw an error.
 ### 读取数据
 1. 将数据里的特定字符转化为NA
 ```r
