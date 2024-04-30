@@ -32,7 +32,7 @@ row.names==NULL.
 ```r
 fread("")
 ```
-Note: pay attention to the autotransformation when importing data
+
 
 ### Check the dataset
 1. base
