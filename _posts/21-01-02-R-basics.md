@@ -651,6 +651,25 @@ unclass(timeDatelt)
 ## [1] NA
 ```
 
+3. `Lubridate`
+- Parsing dates and times
+```r
+ymd("20110604")
+#> [1] "2011-06-04"
+mdy("06-04-2011")
+#> [1] "2011-06-04"
+dmy("04/06/2011")
+#> [1] "2011-06-04"
+arrive <- ymd_hms("2011-06-04 12:00:00", tz = "Pacific/Auckland")
+arrive
+#> [1] "2011-06-04 12:00:00 NZST"
+leave <- ymd_hms("2011-08-10 14:00:00", tz = "Pacific/Auckland")
+leave
+#> [1] "2011-08-10 14:00:00 NZST"
+```
+- Setting and Extracting information
+```r
+```
 ## 其它
 去除factor——unfactor
 
