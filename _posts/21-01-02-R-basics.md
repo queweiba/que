@@ -378,7 +378,7 @@ X[Y]
 
 ### 比较
 1. identical
-
+used in R to check whether two R objects are equal/ identical or not
 identical是比较严格的比较，如果只想比较数值可以用“==”
 ```r
 identical(1, 1.)   ## TRUE in R (both are stored as doubles)
