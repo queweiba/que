@@ -657,7 +657,7 @@ unclass(timeDatelt)
 ## [1] NA
 ```
 
-3. `Lubridate`
+3. `Lubridate` package
 - Parsing dates and times
 ```r
 ymd("20110604")
@@ -674,7 +674,14 @@ leave
 #> [1] "2011-08-10 14:00:00 NZST"
 ```
 - Setting and Extracting information
+Simple functions to get and set components of a date-time, such as year(), month(), mday(), hour(), minute() and second()
 ```r
+bday <- dmy("14/10/1979")
+month(bday)
+wday(bday, label = TRUE)
+
+year(bday) <- 2016
+wday(bday, label = TRUE)
 ```
 ## 其它
 去除factor——unfactor
