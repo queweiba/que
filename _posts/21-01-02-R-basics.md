@@ -21,6 +21,12 @@ row.names==NULL.
 #通常情况下不用设置row.names也能使用默认排序列，若需用数据中的列排序则需 row.names==列名 
 #Using NULL for the value resets the row names to seq_len(nrow(x)), regarded as ‘automatic'
 ```
+5. Don´t put String as Factor 
+R often uses a concept of factors to re-encode strings. To avoid this:
+```r
+vanco<- read.csv(stringsAsFactors = FALSE)
+```
+
 
 ## Tidyverse `read_r`
 - `read_csv()` reads comma delimted files
