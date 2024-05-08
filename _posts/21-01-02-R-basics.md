@@ -149,6 +149,7 @@ DT[,.(V2,V3)] #return V2 and V3 as a data.table
 1. `ifelse()` 
 ```r
 gsample$Continent <- with(gsample, ifelse(MAKE=='HOLDEN', 'AUS', Continent))
+#should notice the outcome of NA
 ```
 
 2. base
