@@ -50,6 +50,7 @@ table(dataset$ID,useNA = "always")
 ```r
 glimpse(dataset)
 summary(dataset %>% mutate_all(factor))
+summary(dataset)#when not tranforming to the factor
 ```
 
 ### 筛选数据
