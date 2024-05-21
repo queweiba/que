@@ -1,7 +1,7 @@
 ### Load a package
 library or require?
 If not used inside a function, `library` is usually used. while `require` is used inside functions, as it outputs a warning and continues if the package is not found, whereas library will throw an error.
-### Read dataset
+### Reading Data
 #### BASE data.frame
 1. 将数据里的特定字符转化为NA
 ```r
@@ -28,15 +28,16 @@ vanco<- read.csv(stringsAsFactors = FALSE)
 ```
 
 
-#### Tidyverse `read_r`
+#### Tidyverse Tibble `read_r`
 - `read_csv()` reads comma delimted files
 - `read_csv()` reads fixed width files
 
 `readr`produces tibbles, they don’t convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions
 
-5. data.table
+#### data.table data.table
 ```r
 fread("")
+#in data.table the default setting is keep.rownames=FALSE, check.names=FALSE, key=NULL, stringsAsFactors=FALSE
 ```
 
 
@@ -145,7 +146,7 @@ DT[,V2] #return V2 as a vector
 DT[,.(V2,V3)] #return V2 and V3 as a data.table
 ```
 
-## 条件替换
+## Mutation based on conditions
 1. `ifelse()` 
 ```r
 gsample$Continent <- with(gsample, ifelse(MAKE=='HOLDEN', 'AUS', Continent))
