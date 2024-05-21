@@ -1,8 +1,8 @@
 ### Load a package
 library or require?
 If not used inside a function, `library` is usually used. while `require` is used inside functions, as it outputs a warning and continues if the package is not found, whereas library will throw an error.
-### 读取数据
-## BASE
+### Read dataset
+#### BASE data.frame
 1. 将数据里的特定字符转化为NA
 ```r
 vanco<-read.csv("Vancomycin_FINAL2.csv",na.strings=".")
@@ -28,7 +28,7 @@ vanco<- read.csv(stringsAsFactors = FALSE)
 ```
 
 
-## Tidyverse `read_r`
+#### Tidyverse `read_r`
 - `read_csv()` reads comma delimted files
 - `read_csv()` reads fixed width files
 
