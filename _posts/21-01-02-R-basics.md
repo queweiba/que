@@ -34,7 +34,7 @@ vanco<- read.csv(stringsAsFactors = FALSE)
 
 `readr`produces tibbles, they don’t convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions
 
-#### data.table data.table
+#### Data.table data.table
 ```r
 fread("")
 #in data.table the default setting is keep.rownames=FALSE, check.names=FALSE, key=NULL, stringsAsFactors=FALSE
@@ -117,8 +117,13 @@ DT[V2 %in% c("A","C")] #Select all rows that have value A or C in column V2
 ```
 
 **筛选列--根据列名**
-1. base 的 subset
+1. base
 ```r
+doswt <- dos[,c("ID","samplemoment")]#通过列名
+char<-char[,-grep("birthdate|DOB|time",colnames(char))] #grep 返回的也是位置
+dataly[ , -which(colnames(dataly) %in% c("b","d"))]  #which 返回的是位置而不是判断
+dat[dat$Group == 'Control', ] #通过判断
+#subset
 subset(airquality, select = Ozone:Wind)
 ```
 
@@ -132,33 +137,32 @@ select(iris, Species, everything())
 select(iris, -starts_with("Petal"))
 ```
 
-3. 最基础的(通过列名，通过位置，通过判断)
-```r
-doswt <- dos[,c("ID","samplemoment")]#通过列名
-char<-char[,-grep("birthdate|DOB|time",colnames(char))] #grep 返回的也是位置
-dataly[ , -which(colnames(dataly) %in% c("b","d"))]  #which 返回的是位置而不是判断
-dat[dat$Group == 'Control', ] #通过判断
-```
-
-4. data.table()
+3. data.table()
 ```r
 DT[,V2] #return V2 as a vector
 DT[,.(V2,V3)] #return V2 and V3 as a data.table
 ```
 
 ## Mutation based on conditions
-1. `ifelse()` 
+1. base
+```r
+gsample$Continent[gsample$MAKE=='HOLDEN'] <- 'AUS'
+```
+2. base `ifelse()` 
 ```r
 gsample$Continent <- with(gsample, ifelse(MAKE=='HOLDEN', 'AUS', Continent))
 #should notice the outcome of NA
 ```
 
-2. base
+3. `base::switch()`
 ```r
-gsample$Continent[gsample$MAKE=='HOLDEN'] <- 'AUS'
+switch (expression, list) #可以替换一个list
+switch(input$var,
+                   "Percent White" = list(counties$white, "darkgreen", "% White")
+       )            
 ```
 
-3. replace()
+4. base `replace()`
 ```r
 x <- data.frame(a = c(0,1,2,NA), b = c(0,NA,1,2), c = c(NA, 0, 1, 2)) 
 #   a  b  c
@@ -182,13 +186,13 @@ x
 #4 0 333  2
 ```
 
-4. plyr 的 `revalue()`
+5. plyr 的 `revalue()`
 ```r
 library(plyr)
 junk$nm <- revalue(junk$nm, c("B"="b"))
 ```
 
-5. dplyr 的`recode()`
+6. dplyr 的`recode()`
 ```r
 char_vec <- sample(c("a", "b", "c"), 10, replace = TRUE)  
 recode(char_vec, a = "Apple")
@@ -212,7 +216,7 @@ recode(num_vec, `2` = 20L, `4` = 40L)
 #> [1]  1 20  3 40 NA
 ```
 
-6. dplyr的`case_when()`   
+7. dplyr的`case_when()`   
 
 ```r   
 #the left hand side must be logical.   
@@ -238,22 +242,16 @@ case_when(test_score_vector >= 90 ~ 'A'
           ,TRUE ~ 'F'
           )
 ```
-7. `base::switch()`
-```r
-switch (expression, list) #可以替换一个list
-switch(input$var,
-                   "Percent White" = list(counties$white, "darkgreen", "% White")
-       )            
-```
 
-8. data.table()
+
+8. `data.table()`
 ```r
 DT[V2=="A",V2:="C"]
 ```
 
 ### 排序
 
-1. 最基础的
+1. base
 ```r
 dos <- dos[order(dos$ID, dos$samplemoment, -dos$EVID),]
 ```
