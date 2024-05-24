@@ -1,0 +1,5 @@
+#  Anything but
+```{r}
+[^a]
+
+``` 
