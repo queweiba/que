@@ -102,6 +102,7 @@ filter(df, is.na(x) | x > 1)
 ```
 
 4. 用dplyr 的 `slice ()` 根据行的位置来选择
+Note that slice will automatically order the row-number you provided
 ```r
 my_data <- as_tibble(iris)
 my_data
