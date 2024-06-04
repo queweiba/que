@@ -89,7 +89,7 @@ obs1<-obs[-(obs$ID==2016&obs$SAMPLENUMBER==201605),]
 #[1]  0  0  0  0  0  0  0  0  0  0  0 -1  0  0  0  0  0  0  0  
 ```
 
-3. dplyr包的filter()
+3. dplyr包的`filter()`
 ```r
 filter(.data, ..., .preserve = FALSE)
 #注意：filter的筛选命令生效是在条件（condition，有点类似于循环语句）为「TRUE」的情况下才能进行，往往并不包括「NA」值和「FALSE」条件;
