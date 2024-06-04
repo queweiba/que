@@ -454,7 +454,8 @@ duplicated(x, incomparables=FALSE, fromLast=FALSE, by=seq_along(x), ...)
 ## S3 method for class 'data.table'
 unique(x, incomparables=FALSE, fromLast=FALSE, by=seq_along(x), ...)
 ```
-### 统计分析：Summarise
+### 统计分析
+**dplyr Summarise**
 Useful functions
 - Center: mean(), median()
 
