@@ -34,7 +34,7 @@ vanco<- read.csv(stringsAsFactors = FALSE)
 
 `readr`produces tibbles, they don’t convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions
 
-#### Data.table data.table
+#### Data.table `data.table`
 ```r
 fread("")
 #in data.table the default setting is keep.rownames=FALSE, check.names=FALSE, key=NULL, stringsAsFactors=FALSE
