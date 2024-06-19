@@ -1,5 +1,5 @@
 # Preface
-------------------------------
+
 To really understand and develop a good model. There are some parts of knowledge that you need to know, which are related to different phase of modeling building process. All these models form the equation of likelihood function of each observation in a popPK analysis.
 
 1. Structural model
