@@ -909,9 +909,16 @@ paste(s,sep =  "-")
 2. table function for a dataframe
 
 **Union selection**
-1. base::union, setdiff
-```r
+1. base::union, setdiff, intercect
 
+Note: setdiff provides asymmetric difference
+```r
+a <- c(1,2,3,4,5)
+b <- c(1,2,3)
+setdiff(a,b)
+#[1] 4 5
+setdiff(b,a)
+#numeric(0)
 ```
 
 2. cumsum
