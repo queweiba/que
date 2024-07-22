@@ -94,6 +94,7 @@ obs1<-obs[-(obs$ID==2016&obs$SAMPLENUMBER==201605),]
 filter(.data, ..., .preserve = FALSE)
 #注意：filter的筛选命令生效是在条件（condition，有点类似于循环语句）为「TRUE」的情况下才能进行，往往并不包括「NA」值和「FALSE」条件;
 #因此，如果筛选缺失值，不能直接使用比较运算符，只能通过R中的内置缺失值判断函数来进行「TRUE的操作」，比如：is.na(x)
+#But in base R the NA will also be selected
 df <- tibble(x = c(1, NA, 3))
 filter(df, is.na(x) | x > 1)
 #A tibble: 2 x 1
