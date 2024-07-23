@@ -147,3 +147,10 @@ p3 <- grid.arrange(arrangeGrob(a + theme(legend.position="none"),
 )
 ```
 
+**Horizontal and Vertical Justification**
+- hjust: top (1), middle (0.5), bottom (0)
+- vjust: left (0), center (0.5), right (1)
+
+In addition, there are two special alignments:
+- inward: inward always aligns text towards the center
+- outward: outward aligns it away from the center
