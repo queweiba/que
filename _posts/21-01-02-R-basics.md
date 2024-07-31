@@ -836,6 +836,7 @@ grep,grepl,sub,gsub,%like%
 ```r
 #grepl () --返回具有相应字母的在一个序列里的T or F
 #grep () 返回的是相应字母在一个序列里的位置
+#grep(value=T) returns the exact character
 grep("[a-z]", letters)
 #[1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
 grepl("[a-z]", letters)
