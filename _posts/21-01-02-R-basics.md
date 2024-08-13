@@ -395,6 +395,24 @@ Y[X]
 X[Y]
 ```
 
+### Rolling join
+1. data.table
+```r
+#note that the dataset inside the braket are the primary dataset to join
+library(data.table)
+df2[df1, on = .(ID, Date1), roll = TRUE]
+```
+
+2. dplyr
+```r
+library(dplyr) # >= 1.1.0
+df1 %>%
+  left_join(df2, join_by(ID, closest(Date1 >= Date1)),
+            suffix = c("", ".y")) %>%
+  select(-Date1.y)
+
+``
+
 ### 比较
 1. identical
 used in R to check whether two R objects are equal/ identical or not
