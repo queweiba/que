@@ -723,7 +723,7 @@ mutate(nAMT=n()-sum(is.na(AMT)))
 ```
 
 
-**Apply**
+**Apply function to a list**
 1. apply
 Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
 margins is a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
