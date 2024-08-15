@@ -724,7 +724,7 @@ mutate(nAMT=n()-sum(is.na(AMT)))
 
 
 **Apply function to a list**
-1. apply
+1. base::apply
 Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix.	
 margins is a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
 ```r
@@ -744,7 +744,7 @@ apply(x, 2, mean, trim = .2)
 #x1 x2 
 # 3  3
 ```
-2. lapply   
+2. base::lapply   
   将一个function联系运用到向量的每一个值, 直到序列得最后一个数值,但返回得总是list，且length跟输入的一样
 ```r
 x <- list(a = 1:10, b = log10(2:78), c = c(TRUE,FALSE,FALSE,FALSE))
@@ -759,7 +759,7 @@ lapply(x, quantile)
 #  0%  25%  50%  75% 100% 
 # 0.0  0.0  0.5  1.0  1.0 
 ```
-3. sapply  
+3. base::sapply  
     返回的根据function()返回的值，更自由一些，可以是vector ,list, matrix
 ```r
 sapply(X, FUN, ..., simplify = TRUE, USE.NAMES = TRUE)
@@ -773,7 +773,7 @@ z
 #75%   7.75  5.05366896   1.0
 #100% 10.00 20.08553692   1.0
 ```
-4. mapply  
+4. base:: mapply  
     将一个function联系运用到向量的每一个值, 直到序列得最后一个数值。与sapply相同，但是适用于可以出入两个以上参数的function
 ```r
 mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
@@ -781,6 +781,17 @@ mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
 combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 
 ```
+
+5. dplyr::group_modify()
+```r
+# return a tibble grouped by `cyl` with 2 rows per group
+# the grouping data is recalculated
+mtcars %>%
+  group_by(cyl) %>%
+  group_modify(~ head(.x, 2L))
+```
+
+
 **多个列同时转换**
 1. dplyr:: across() makes it easy to apply the same transformation to multiple columns, by defining using `.cols=`
 Note: across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
