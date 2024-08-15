@@ -784,6 +784,7 @@ combined$WT<-mapply(WT_calculation,combined$BW,combined$PNA1)
 
 5. dplyr::group_modify()
 ```r
+# group_modify() returns a grouped tibble. In that case .f must return a data frame.
 # return a tibble grouped by `cyl` with 2 rows per group
 # the grouping data is recalculated
 mtcars %>%
