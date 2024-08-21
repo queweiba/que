@@ -2,7 +2,7 @@
 library or require?
 If not used inside a function, `library` is usually used. while `require` is used inside functions, as it outputs a warning and continues if the package is not found, whereas library will throw an error.
 ### Reading Data
-#### BASE data.frame
+#### BASE::data.frame
 1. 将数据里的特定字符转化为NA
 ```r
 vanco<-read.csv("Vancomycin_FINAL2.csv",na.strings=".")
@@ -28,13 +28,13 @@ vanco<- read.csv(stringsAsFactors = FALSE)
 ```
 
 
-#### Tidyverse Tibble `read_r`
+#### Tidyverse::Tibble `read_r`
 - `read_csv()` reads comma delimted files
 - `read_csv()` reads fixed width files
 
 `readr`produces tibbles, they don’t convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions
 
-#### Data.table `data.table`
+#### Data.table::`data.table`
 ```r
 fread("")
 #in data.table the default setting is keep.rownames=FALSE, check.names=FALSE, key=NULL, stringsAsFactors=FALSE
