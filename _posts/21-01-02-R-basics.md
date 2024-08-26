@@ -473,6 +473,9 @@ duplicated(x, incomparables=FALSE, fromLast=FALSE, by=seq_along(x), ...)
 ## S3 method for class 'data.table'
 unique(x, incomparables=FALSE, fromLast=FALSE, by=seq_along(x), ...)
 ```
+
+### Add rows
+
 ### 统计分析
 **dplyr Summarise**
 Useful functions
